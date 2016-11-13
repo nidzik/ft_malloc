@@ -39,9 +39,10 @@ CFLAGS = $(BASEFLAGS) -Werror -O2 -g
 LFTCALL = all
 LFTRE = re
 
-
-SRCSFILES = main.c \
-			malloc.c\
+#main.c
+SRCSFILES = malloc.c\
+			ft_atoi_hex.c\
+			test.c
 
 SRC = $(addprefix $(SRCPATH)/,$(SRCSFILES))
 OBJECTS = $(SRC:$(SRCPATH)/%.c=$(OBJPATH)/%.o)
