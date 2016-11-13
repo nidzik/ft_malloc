@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/11 11:55:25 by nidzik            #+#    #+#             */
-/*   Updated: 2016/11/11 12:18:20 by nidzik           ###   ########.fr       */
+/*   Updated: 2016/11/13 18:20:31 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,22 @@
 #include <string.h>
 #include <pthread.h>
 
+#define FLAGS_PROT PROT_READ | PROT_WRITE
+#define FLAGS_MAP MAP_ANON | MAP_PRIVATE
+#define FLAGS FLAGS_PROT ,FLAGS_MAP, -1, 0
+
+#define TINY 1
+#define SMALL 2
+#define LARGE 3
+
+#define PAGE_SIZES getpagesize()
+
+#define TINY_SIZE (size_t) (PAGE_SIZES)
+#define SMALL_SIZE (size_t) (PAGE_SIZES * 20)
+
+#define PAGE_TINY_SIZE TINY_SIZE * 100
+#define PAGE_SMALL_SIZE SMALL_SIZE * 100
+
 /*
  * s_page structure to stock all page allocated informations
  */
@@ -25,7 +41,7 @@ typedef struct			s_page
 	size_t				size;
 	int					full;
 	void				*start;
-	char				type;
+	size_t				type;
 	void				*next;
 }						t_page;
 
@@ -62,4 +78,7 @@ void 		ft_header_info();
 void		ft_atoi_hex(void *ptr);
 
 /* 			Malloc functions 		*/
-void    	*mallocc(size_t size);
+void    	*mallocc(size_t size, t_page *p);
+void		init_genv();
+size_t			get_type(size_t size);
+t_page 		*new_page(size_t size);
