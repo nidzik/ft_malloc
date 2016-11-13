@@ -58,8 +58,11 @@ pthread_mutex_t			g_lock;
 
 /* 		Show all memory functions 	*/
 void 		show_alloc_mem();
-void 		ft_header_info();
+void 		ft_header_info(void *header, site_t size);
 void		ft_atoi_hex(void *ptr);
 
 /* 			Malloc functions 		*/
-void    	*mallocc(size_t size);
+void    	*malloc(size_t size);
+
+/* 			Free functions			*/
+void 		free(void *ptr);
