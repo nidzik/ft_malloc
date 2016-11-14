@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/11 11:55:25 by nidzik            #+#    #+#             */
-/*   Updated: 2016/11/13 20:20:31 by nidzik           ###   ########.fr       */
+/*   Updated: 2016/11/14 09:41:14 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,20 +78,14 @@ void 		ft_header_info(void *header, site_t size);
 void		ft_atoi_hex(void *ptr);
 
 /* 			Malloc functions 		*/
-<<<<<<< HEAD
-void    	*malloc(size_t size);
+void    	*mallocc(size_t size);
 
 /* 			Free functions			*/
 void 		free(void *ptr);
-=======
-void    	*mallocc(size_t size, t_page *p);
+
 void		init_genv();
 size_t		get_type(size_t size);
 t_page 		*new_page(size_t size);
-<<<<<<< HEAD
-
 void		*create_block(size_t size, void *start_page);
 void		create_head(size_t size, t_header *head, t_header *next);
-=======
->>>>>>> d95450842da6ee4018c190b708a4ee30e409f125
->>>>>>> dacd471f465c71e585000113ff03b98fe6dd66f8
+
