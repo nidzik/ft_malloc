@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/11 11:55:25 by nidzik            #+#    #+#             */
-/*   Updated: 2016/11/14 09:41:14 by nidzik           ###   ########.fr       */
+/*   Updated: 2016/11/14 09:48:20 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,11 @@ pthread_mutex_t			g_lock;
 
 /* 		Show all memory functions 	*/
 void 		show_alloc_mem();
-void 		ft_header_info(void *header, site_t size);
+void 		ft_header_info(void *header, size_t size);
 void		ft_atoi_hex(void *ptr);
 
 /* 			Malloc functions 		*/
-void    	*mallocc(size_t size);
+void    	*mallocc(size_t size, t_page *p);
 
 /* 			Free functions			*/
 void 		free(void *ptr);

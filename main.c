@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/11 09:31:59 by nidzik            #+#    #+#             */
-/*   Updated: 2016/11/14 09:39:26 by nidzik           ###   ########.fr       */
+/*   Updated: 2016/11/14 11:41:59 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,15 @@ int main(int ac, char ** av)
 	  i++;
   }
   str[i] = '\0';
-  printf("start at %p ", &str);fflush(stdout);
+  printf("&str  at %p  - > %p ", &str, str);fflush(stdout);
   ft_putchar('\n');
   ft_putendl(str);
   str2 =  mallocc(sizeof(char) * ft_strlen(av[1]), g_env.page);
   ft_putendl("str after str2 was malloc");
   ft_putendl(str); 
+ str2 =  mallocc(sizeof(char) * ft_strlen(av[1]), g_env.page);
+ str2 =  mallocc(sizeof(char) * ft_strlen(av[1]), g_env.page);
+ str2 =  mallocc(sizeof(char) * ft_strlen(av[1]), g_env.page);
+ 
   return (0);
 }
