@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/11 11:24:23 by nidzik            #+#    #+#             */
-/*   Updated: 2016/11/14 11:39:27 by nidzik           ###   ########.fr       */
+/*   Updated: 2016/11/14 14:42:21 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void 		*mallocc(size_t size, t_page *p)
 	{
 		printf("page do not exist\n");fflush(stdout);
 		g_env.page = new_page(type);
-		printf("new page at %p \n", (g_env.page->start));fflush(stdout);
+/* 		printf("new page at %p \n", (g_env.page->start));fflush(stdout); */
 		return (create_block(size, g_env.page->start));//p->start); not start find whart /
 		printf("malloc at %p \n\n", (g_env.page->start));fflush(stdout);
 		

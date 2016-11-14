@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/13 15:16:23 by nidzik            #+#    #+#             */
-/*   Updated: 2016/11/14 11:49:31 by nidzik           ###   ########.fr       */
+/*   Updated: 2016/11/14 14:43:11 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_page		*new_page(size_t type)
 	p.size = get_page_size_max(type);
 	p.full = 0;
 	p.start = mmap(0, p.size, FLAGS);
-	p.start = p.start ;
+	p.start = p.start;
 	p.next = NULL;//p.start + sizeof(p) + 1;
 	printf("new page type %d created at %p \n",(int)type, p.start);fflush(stdout);
 	return (&p);

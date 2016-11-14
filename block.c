@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/13 19:11:17 by nidzik            #+#    #+#             */
-/*   Updated: 2016/11/14 11:56:49 by nidzik           ###   ########.fr       */
+/*   Updated: 2016/11/14 12:59:30 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void		*create_block(size_t size, void *start_page)
 	while (head->next)
 	{
 		printf("search for next head avalible checking : %p, head-next : %p \n",head, head->next ); fflush(stdout);
+		ft_atoi_hex(head);
 		if (head->free == 1 && head->size >= size)
 		{
 			printf("head free and > size\n");fflush(stdout);

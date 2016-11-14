@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/11 09:31:59 by nidzik            #+#    #+#             */
-/*   Updated: 2016/11/14 11:41:59 by nidzik           ###   ########.fr       */
+/*   Updated: 2016/11/14 14:42:17 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int main(int ac, char ** av)
 {
   char *str;
   char *str2;
+  char *str3;
   int i;
 
   i = 0;
@@ -26,6 +27,8 @@ int main(int ac, char ** av)
   }
   init_genv();
   str =  mallocc(sizeof(char) * ft_strlen(av[1]), g_env.page);
+  str2 = mallocc(sizeof(char) * ft_strlen(av[1]), g_env.page);
+  str3 = mallocc(sizeof(char) * ft_strlen(av[1]), g_env.page);
   while (av[1][i] != '\0')
   {
 	  str[i] = av[1][i];
@@ -39,9 +42,7 @@ int main(int ac, char ** av)
   str2 =  mallocc(sizeof(char) * ft_strlen(av[1]), g_env.page);
   ft_putendl("str after str2 was malloc");
   ft_putendl(str); 
- str2 =  mallocc(sizeof(char) * ft_strlen(av[1]), g_env.page);
- str2 =  mallocc(sizeof(char) * ft_strlen(av[1]), g_env.page);
- str2 =  mallocc(sizeof(char) * ft_strlen(av[1]), g_env.page);
- 
+
+ show_alloc_mem(); 
   return (0);
 }
