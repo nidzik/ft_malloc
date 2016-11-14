@@ -6,7 +6,7 @@
 #    By: nidzik <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/11 10:34:54 by nidzik            #+#    #+#              #
-#    Updated: 2016/11/13 16:08:17 by nidzik           ###   ########.fr        #
+#    Updated: 2016/11/13 20:17:43 by nidzik           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -41,9 +41,9 @@ LFTRE = re
 
 
 SRCSFILES = main.c \
-			malloc.c\
-			init.c
-			
+			malloc.c \
+			init.c \
+			block.c \
 
 SRC = $(addprefix $(SRCPATH)/,$(SRCSFILES))
 OBJECTS = $(SRC:$(SRCPATH)/%.c=$(OBJPATH)/%.o)
