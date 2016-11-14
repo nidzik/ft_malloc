@@ -6,7 +6,11 @@
 #    By: nidzik <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/11 10:34:54 by nidzik            #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2016/11/13 20:17:43 by nidzik           ###   ########.fr        #
+=======
+#    Updated: 2016/11/13 18:27:58 by bbichero         ###   ########.fr        #
+>>>>>>> dacd471f465c71e585000113ff03b98fe6dd66f8
 #                                                                              #
 #******************************************************************************#
 
@@ -39,12 +43,19 @@ CFLAGS = $(BASEFLAGS) -Werror -O2 -g
 LFTCALL = all
 LFTRE = re
 
+<<<<<<< HEAD
 
 SRCSFILES = main.c \
 			malloc.c \
 			init.c \
 			block.c \
 
+=======
+SRCSFILES = malloc.c\
+			ft_atoi_hex.c\
+			init.c
+			
+>>>>>>> dacd471f465c71e585000113ff03b98fe6dd66f8
 SRC = $(addprefix $(SRCPATH)/,$(SRCSFILES))
 OBJECTS = $(SRC:$(SRCPATH)/%.c=$(OBJPATH)/%.o)
 

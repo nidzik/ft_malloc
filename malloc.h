@@ -74,14 +74,24 @@ pthread_mutex_t			g_lock;
 
 /* 		Show all memory functions 	*/
 void 		show_alloc_mem();
-void 		ft_header_info();
+void 		ft_header_info(void *header, site_t size);
 void		ft_atoi_hex(void *ptr);
 
 /* 			Malloc functions 		*/
+<<<<<<< HEAD
+void    	*malloc(size_t size);
+
+/* 			Free functions			*/
+void 		free(void *ptr);
+=======
 void    	*mallocc(size_t size, t_page *p);
 void		init_genv();
 size_t		get_type(size_t size);
 t_page 		*new_page(size_t size);
+<<<<<<< HEAD
 
 void		*create_block(size_t size, void *start_page);
 void		create_head(size_t size, t_header *head, t_header *next);
+=======
+>>>>>>> d95450842da6ee4018c190b708a4ee30e409f125
+>>>>>>> dacd471f465c71e585000113ff03b98fe6dd66f8
