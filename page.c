@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/18 14:43:29 by nidzik            #+#    #+#             */
-/*   Updated: 2016/11/20 19:48:27 by nidzik           ###   ########.fr       */
+/*   Updated: 2016/11/20 20:43:03 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_page*			find_page(size_t size)
 
 				page->full = 1;
 				page->next = new_page(type);
-				printf("2nd %p \n", page->next);
+				printf("2nd %p \n", page->next);fflush(stdout);
 				page = page->next ;
 				return(page->start);
 			}
@@ -46,10 +46,14 @@ t_page*			find_page(size_t size)
 
 		}
 		//ft_putstr("infiniteloop");
+		if (page->next)
 			page = page->next;
+		else 
+			break;
 	}
 	ft_putendl("apr");
-	page = new_page(type);
+	page->next = new_page(type);
+	page = page->next;
 
 	return (page->start);
 }

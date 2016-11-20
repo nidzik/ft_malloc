@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/11 09:31:59 by nidzik            #+#    #+#             */
-/*   Updated: 2016/11/20 19:18:20 by nidzik           ###   ########.fr       */
+/*   Updated: 2016/11/20 20:29:29 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,6 @@ str =  mallocc(sizeof(char) * (ft_strlen(av[1]) +1), g_env.page);
   ft_putendl(str2); 
   ft_putendl(str3); }
 
-  //show_alloc_mem(); 
+  show_alloc_mem(); 
   return (0);
 }
