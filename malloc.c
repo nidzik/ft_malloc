@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/11 11:24:23 by nidzik            #+#    #+#             */
-/*   Updated: 2016/11/14 14:42:21 by nidzik           ###   ########.fr       */
+/*   Updated: 2016/11/20 16:51:51 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,29 @@ t_env		g_env;
 void 		*mallocc(size_t size, t_page *p)
 {
 	size_t type;
-	
+//	t_page	*ptr;
+
 	type = get_type(size);
+	printf("\n%d\n", (int)type);fflush(stdout);
 	if (!p)
 	{
-		printf("page do not exist\n");fflush(stdout);
-		g_env.page = new_page(type);
-/* 		printf("new page at %p \n", (g_env.page->start));fflush(stdout); */
+		printf("page do not exist %d \n", (int)type);fflush(stdout);
+		if (type == 3)
+		{
+			ft_putchar('f');
+			return( mmap(0, size, FLAGS));
+		}
+		else
+			g_env.page = new_page(type);
 		return (create_block(size, g_env.page->start));//p->start); not start find whart /
 		printf("malloc at %p \n\n", (g_env.page->start));fflush(stdout);
-		
 	}
 	else if (p)
 	{
 		printf("page exist  p->start : %p \n", p->start);fflush(stdout);
-		return (create_block(size, p->start));//p->start);
-/* 		if (p.full) */
-/* 			g_env.page->next = find_next_page(type, p); */
+//		ptr = find_page(size);
+		//	if (ptr.size == 0)
+		return (create_block(size, find_page(size)));//p->start);
 	}
 	else
 	{

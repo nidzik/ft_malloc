@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/11 11:55:25 by nidzik            #+#    #+#             */
-/*   Updated: 2016/11/14 09:48:20 by nidzik           ###   ########.fr       */
+/*   Updated: 2016/11/20 15:10:39 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,6 @@ size_t		get_type(size_t size);
 t_page 		*new_page(size_t size);
 void		*create_block(size_t size, void *start_page);
 void		create_head(size_t size, t_header *head, t_header *next);
-
+t_page		*find_page(size_t type);
+/* size_t		get_max_size(size_t type, size_t size); */
+size_t      get_page_size_max(size_t type);

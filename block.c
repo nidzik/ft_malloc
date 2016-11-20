@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/13 19:11:17 by nidzik            #+#    #+#             */
-/*   Updated: 2016/11/14 12:59:30 by nidzik           ###   ########.fr       */
+/*   Updated: 2016/11/20 19:02:13 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,19 @@
 void		*create_block(size_t size, void *start_page)
 {
 	t_header 	*head;
+/* 	t_page		*page; */
 	char		*next;
 
 	head = start_page;
-	while (head->next)
+/* 	head->size = 0; */
+/* 	head->free = 0; */
+/* 	next = NULL; */
+/* 	page = start_page; */
+	while (head->next )
 	{
-		printf("search for next head avalible checking : %p, head-next : %p \n",head, head->next ); fflush(stdout);
-		ft_atoi_hex(head);
+
+		//printf("search for next head avalible checking : %p, head-next : %p \n",head, head->next ); fflush(stdout);
+		//ft_atoi_hex(head);
 		if (head->free == 1 && head->size >= size)
 		{
 			printf("head free and > size\n");fflush(stdout);
@@ -32,6 +38,7 @@ void		*create_block(size_t size, void *start_page)
 		if (!head->next )
 			ft_putendl("NULL");
 /* 		printf("end while in create block before head %p = next %p \n", head, head->next);fflush(stdout); */
+
 		head = head->next; 
 	}
 	if (head->size)
@@ -53,7 +60,7 @@ void		*create_block(size_t size, void *start_page)
 void		create_head(size_t size, t_header *head, t_header *next)
 {
 
-	printf("creating header at %p -> %p  next : %p\n",&head, head, next );fflush(stdout);
+	printf("creating header at %p -> %p  next : %p  /!\\ SIZE : %d \n",&head, head, next, (int)size );fflush(stdout);
 	head->size = size;
 	head->free = 0;
 	head->next = next;
