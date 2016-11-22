@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/11 09:31:59 by nidzik            #+#    #+#             */
-/*   Updated: 2016/11/20 20:29:29 by nidzik           ###   ########.fr       */
+/*   Updated: 2016/11/22 02:48:35 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int main(int ac, char ** av)
 str =  mallocc(sizeof(char) * (ft_strlen(av[1]) +1), g_env.page);
 str =  mallocc(sizeof(char) * (ft_strlen(av[1]) +1), g_env.page);
 str =  mallocc(sizeof(char) * (ft_strlen(av[1]) +1), g_env.page);
+free(str);
 str =  mallocc(sizeof(char) * (ft_strlen(av[1]) +1), g_env.page);
 str =  mallocc(sizeof(char) * (ft_strlen(av[1]) +1), g_env.page);
 str =  mallocc(sizeof(char) * (ft_strlen(av[1]) +1), g_env.page);
@@ -66,7 +67,7 @@ str =  mallocc(sizeof(char) * (ft_strlen(av[1]) +1), g_env.page);
 //  ft_putendl("str after str2 was malloc");
   ft_putendl(str2); 
   ft_putendl(str3); }
-
+  free(str3);
   show_alloc_mem(); 
   return (0);
 }

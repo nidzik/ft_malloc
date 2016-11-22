@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/11 11:55:25 by nidzik            #+#    #+#             */
-/*   Updated: 2016/11/20 15:10:39 by nidzik           ###   ########.fr       */
+/*   Updated: 2016/11/22 02:30:23 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,3 +91,11 @@ void		create_head(size_t size, t_header *head, t_header *next);
 t_page		*find_page(size_t type);
 /* size_t		get_max_size(size_t type, size_t size); */
 size_t      get_page_size_max(size_t type);
+
+
+/* FREE FCT  */
+
+void        free(void *ptr);
+t_page      *find_page_free(t_page *page, void *ptr);
+t_header    *find_head_free(t_page *page, void *ptr);
+void        free_head(t_header *head, void *ptr);

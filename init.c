@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/13 15:16:23 by nidzik            #+#    #+#             */
-/*   Updated: 2016/11/20 20:36:15 by nidzik           ###   ########.fr       */
+/*   Updated: 2016/11/22 02:04:53 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void		init_genv()
 	p.next = NULL;
 	g_env.page = &p;
 	g_env.page = NULL;
-	printf("environement created\n");fflush(stdout);
+	return ;
 }
 
 size_t		get_type(size_t size)
@@ -32,8 +32,9 @@ size_t		get_type(size_t size)
 		return (TINY);
 	else if (size >= TINY_SIZE && size < SMALL_SIZE)
 		return (SMALL);
-	else {
-// inset getrlimit 
+	else
+	{
+// inset getrlimit
 		return (LARGE);
 	}
 }
@@ -47,24 +48,20 @@ size_t		get_page_size_max(size_t type)
 	return (0);
 }
 
-
 t_page		*new_page(size_t type)
 {
 	t_page *p;
 
-	p = mmap(0,sizeof(p),FLAGS);	
+	p = mmap(0, sizeof(p), FLAGS);
 	p->type = type;
-	if (type == 1 || type == 2 )
+	if (type == 1 || type == 2)
 	{
-		p->size = 0;//get_page_size_max(type);
+		p->size = 0;
 		p->full = 0;
 		p->start = mmap(0, get_page_size_max(type), FLAGS);
 		p->start = p->start + 1;
-		p->next = NULL;//p.start + sizeof(p) + 1;
-		printf("new page type %d created at %p   to %p, size of %d\n",(int)type, p->start,p->start + get_page_size_max(type), (int)p->size);fflush(stdout);
+		p->next = NULL;
+		printf("new page type %d created %p,  start at %p   to %p, size of %d\n",(int)type, p,p->start,p->start + get_page_size_max(type), (int)p->size);fflush(stdout);
 	}
-	
 	return (p);
 }
-
-
