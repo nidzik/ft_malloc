@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/13 19:11:17 by nidzik            #+#    #+#             */
-/*   Updated: 2016/11/22 04:08:07 by nidzik           ###   ########.fr       */
+/*   Updated: 2016/11/23 20:32:19 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ void		*create_block(size_t size, void *start_page)
 	}
 /* 	printf("no head avalible found\n");fflush(stdout); */
 	create_head(size, head, NULL);
-/* 	printf("%p\n",&(head) + sizeof(head));fflush(stdout); */
-/* 	printf("head + 1 = %p \n\n\n",head + 1);fflush(stdout); */
+	printf("head : %p   head + sizeof head : %p \n",head, (head) + sizeof(head));fflush(stdout);
+	printf("head + 1 = %p \n\n\n",head + 1);fflush(stdout);
 	return (head + 1);
 }
 
@@ -53,5 +53,5 @@ void		create_head(size_t size, t_header *head, t_header *next)
 	head->size = size;
 	head->free = 0;
 	head->next = next;
-	printf("creating header at %p -> %p  next : %p  /!\\ SIZE : %p \n",&head, head, next, (void *)head + size );fflush(stdout);
+	printf("creating header at %p \nhstart : %p/!\\ headsizeof+size : %p \n", head, head + sizeof(head), (void *)head + sizeof(head) + size );fflush(stdout);
 }

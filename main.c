@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/11 09:31:59 by nidzik            #+#    #+#             */
-/*   Updated: 2016/11/22 02:48:35 by nidzik           ###   ########.fr       */
+/*   Updated: 2016/11/24 01:51:53 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,22 @@ int main(int ac, char ** av)
   char *str;
   char *str2;
   char *str3;
+  char *str4;
   int i;
+
+  int j;
+  char* addr;
+
+  j = 0;
+  while (j < 1024)
+  {
+	  addr = (char*)mallocc(1024, g_env.page);
+	  addr[0] = 42;
+	  free(addr);
+	 j++;
+  }
+  show_alloc_mem();
+  return (0);
 
   i = 0;
   if (ac == 1)
@@ -26,7 +41,7 @@ int main(int ac, char ** av)
       return (1);
   }
   init_genv();
-  while (i < 100)
+/*  while (i < 100)
   {
   str =  mallocc(sizeof(char) * (ft_strlen(av[1]) +1), g_env.page);
   i++;
@@ -39,15 +54,18 @@ free(str);
 str =  mallocc(sizeof(char) * (ft_strlen(av[1]) +1), g_env.page);
 str =  mallocc(sizeof(char) * (ft_strlen(av[1]) +1), g_env.page);
 str =  mallocc(sizeof(char) * (ft_strlen(av[1]) +1), g_env.page);
+*/
 str =  mallocc(sizeof(char) * (ft_strlen(av[1]) +1), g_env.page);
 
   str2 = mallocc(sizeof(char) * (ft_strlen(av[2]) +1), g_env.page);
   str3 = mallocc(sizeof(char) * (ft_strlen(av[3]) +1), g_env.page);
-
+  str4 = mallocc(sizeof(char) * (ft_strlen(av[1]) +1), g_env.page);
   while (av[1][i] != '\0'){
 	  str[i] = av[1][i];
+	  str4[i] = av[1][i];
 	  i++;}
   str[i] = '\0';  
+  str4[i] = '\0';  
   i = 0;
   while (av[2][i] != '\0'){
 	  str2[i] = av[2][i];
@@ -66,8 +84,15 @@ str =  mallocc(sizeof(char) * (ft_strlen(av[1]) +1), g_env.page);
   ft_putendl(str);
 //  ft_putendl("str after str2 was malloc");
   ft_putendl(str2); 
-  ft_putendl(str3); }
+  ft_putendl(str3); 
+  ft_putendl(str4); }
+  show_alloc_mem();
+  free(str2);
   free(str3);
+  str3 = mallocc(sizeof(char) * (ft_strlen(av[3]) +1), g_env.page);
   show_alloc_mem(); 
+  ft_putendl(str);
+  ft_putendl(str3);
+  ft_putendl(str4); 
   return (0);
 }
