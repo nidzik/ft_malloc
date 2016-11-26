@@ -100,4 +100,8 @@ void        free_head(t_header *head, void *ptr);
 
 
 /* realloc */
+void	    *find_head(t_page *page, void *ptr);
+void		*check_size_ptr(t_header *header, size_t size, void *ptr);
+void 		*check_next(size_t size, t_header *header);
 void        *realloc(void *ptr, size_t size);
+void 		*super_fusion(t_header *header, t_header *next, size_t size, size_t old_header_size);
