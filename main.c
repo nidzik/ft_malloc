@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/11 09:31:59 by nidzik            #+#    #+#             */
-/*   Updated: 2016/11/24 01:51:53 by nidzik           ###   ########.fr       */
+/*   Updated: 2016/11/25 13:46:59 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ int main(int ac, char ** av)
   char* addr;
 
   j = 0;
-  while (j < 1024)
+  while (j < 4096)
   {
-	  addr = (char*)mallocc(1024, g_env.page);
+	  addr = (char*)mallocc(9024, g_env.page);
 	  addr[0] = 42;
 	  free(addr);
 	 j++;
@@ -34,13 +34,14 @@ int main(int ac, char ** av)
   show_alloc_mem();
   return (0);
 
+  init_genv();
   i = 0;
   if (ac == 1)
   {
       printf("at least 1 arg plz..\n");
       return (1);
   }
-  init_genv();
+
 /*  while (i < 100)
   {
   str =  mallocc(sizeof(char) * (ft_strlen(av[1]) +1), g_env.page);
@@ -87,9 +88,10 @@ str =  mallocc(sizeof(char) * (ft_strlen(av[1]) +1), g_env.page);
   ft_putendl(str3); 
   ft_putendl(str4); }
   show_alloc_mem();
-  free(str2);
-  free(str3);
-  str3 = mallocc(sizeof(char) * (ft_strlen(av[3]) +1), g_env.page);
+//  free(str2);
+//  free(str3);
+  //str3 = mallocc(sizeof(char) * (ft_strlen(av[3]) +1), g_env.page);
+  realloc(str2, 10);
   show_alloc_mem(); 
   ft_putendl(str);
   ft_putendl(str3);

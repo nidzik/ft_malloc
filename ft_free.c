@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/21 23:39:39 by nidzik            #+#    #+#             */
-/*   Updated: 2016/11/23 22:59:30 by nidzik           ###   ########.fr       */
+/*   Updated: 2016/11/24 19:28:24 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void		free_head(t_header *head, void *ptr)
 			else
 				ft_putendl("next not free");
 		}
+		ft_putendl("freed anyway");
 	}
 	return ;
 }
