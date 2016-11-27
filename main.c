@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/11 09:31:59 by nidzik            #+#    #+#             */
-/*   Updated: 2016/11/25 13:46:59 by nidzik           ###   ########.fr       */
+/*   Updated: 2016/11/26 18:16:09 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,23 @@ int main(int ac, char ** av)
   char *str4;
   int i;
 
+  (void)ac;
+  str =  mallocc(sizeof(char) * (ft_strlen(av[1]) +1), g_env.page);
+
+  ft_putendl("STR MALLOC");
+
+  str2 =  mallocc(sizeof(char) * (ft_strlen(av[2]) +1), g_env.page);    
+  ft_putendl("STR2 MALLOC show mem : ");  
+show_alloc_mem();
+  
+  realloc(str, 15);
+  str3 = mallocc(sizeof(char) * (ft_strlen(av[3]) +1), g_env.page);
+/*   ft_putendl("reMALLOC"); */
+  show_alloc_mem();
+  return 0;
+
+
+/*
   int j;
   char* addr;
 
@@ -41,7 +58,7 @@ int main(int ac, char ** av)
       printf("at least 1 arg plz..\n");
       return (1);
   }
-
+*/
 /*  while (i < 100)
   {
   str =  mallocc(sizeof(char) * (ft_strlen(av[1]) +1), g_env.page);
