@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/11 09:31:59 by nidzik            #+#    #+#             */
-/*   Updated: 2016/11/26 18:16:09 by nidzik           ###   ########.fr       */
+/*   Updated: 2016/11/29 06:09:41 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int main(int ac, char ** av)
   int i;
 
   (void)ac;
+  printf("%d",getpagesize());fflush(stdout);
   str =  mallocc(sizeof(char) * (ft_strlen(av[1]) +1), g_env.page);
 
   ft_putendl("STR MALLOC");
@@ -28,11 +29,12 @@ int main(int ac, char ** av)
   str2 =  mallocc(sizeof(char) * (ft_strlen(av[2]) +1), g_env.page);    
   ft_putendl("STR2 MALLOC show mem : ");  
 show_alloc_mem();
-  
-  realloc(str, 15);
-  str3 = mallocc(sizeof(char) * (ft_strlen(av[3]) +1), g_env.page);
-/*   ft_putendl("reMALLOC"); */
-  show_alloc_mem();
+free(str2);
+printf("\n reall %p\n",realloc(str, 150));fflush(stdout);
+ str3 = mallocc(sizeof(char) * (ft_strlen(av[3]) +1), g_env.page);
+  ft_putendl("reMALLOC");
+/* free(str); */
+ show_alloc_mem();
   return 0;
 
 

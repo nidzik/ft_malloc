@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/24 19:59:35 by nidzik            #+#    #+#             */
-/*   Updated: 2016/11/26 18:42:10 by nidzik           ###   ########.fr       */
+/*   Updated: 2016/11/29 06:17:31 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void		*realloc(void *ptr, size_t size)
 	t_header	*header;
 	void		*fresh_ptr;
 
+	size = resize_size(size);
 	if (!ptr)
 	{
 		ft_putendl("no ptr go to mall(size)");
@@ -60,7 +61,9 @@ void		*realloc(void *ptr, size_t size)
 		else 
 		{
 			fresh_ptr = check_size_ptr(header, size, ptr);
+	ft_putendl("haphap");
 			free(ptr);
+			ft_putnbr(header->free);
 			return (fresh_ptr);
 		}
 	}
@@ -79,18 +82,19 @@ void			*check_size_ptr(t_header *header, size_t size, void *ptr)
 	void 	*new_ptr;
 
 	ft_putendl("check_size_ptr");
- 	if (header->size < size)
+ 	if (header->size )
 	{
 	ft_putendl("check_head_size");
 		new_ptr = check_next(size, header);
+/* 			printf("\n\n\n\nssssssssssss%d",new_ptr->free); */
 		if (new_ptr)
 			return (new_ptr);
 	}
-	else if (header->size > size)// ou sup a size +sizeof(head) + 4;
-	{
-	ft_putendl("superfus rm > ptr");
+/* 	else if (header->size > size)// ou sup a size +sizeof(head) + 4; */
+/* 	{ */
+/* 	ft_putendl("superfus rm > ptr"); */
 //superfusion
-	}
+/* 	} */
 	else if (header->size == size)
 		return (ptr);
 	return (NULL);
@@ -115,7 +119,7 @@ void 			*check_next(size_t size, t_header *header)
 		next = NULL;
 		ft_putendl("ololol");
 	}
-	if (next->free == 1 && size < (next->size + size) && (header->size + next->size) <= (size + sizeof(header) + 4))
+	/*if (next->free == 1 && size < (next->size + size) && (header->size + next->size) <= (size + sizeof(header) + 4))
 	{
 	ft_putendl("if1");
 		if (next->next)
@@ -124,8 +128,10 @@ void 			*check_next(size_t size, t_header *header)
 			header->next = NULL;
 		header->size = size;
 		header->free = 0;
-	}
-	else if (next->free == 1 && size < (next->size + size) && (header->size + next->size) > (size + sizeof(header) + 4))
+		}*/
+
+		
+	if ((next->free == 1 && size <= (next->size + header->size + 24)) || size <= header->size)// && (header->size + next->size + 16) > (size))
 	{
 	ft_putendl("if2");
 		if (next->next)
@@ -137,9 +143,10 @@ void 			*check_next(size_t size, t_header *header)
 		header->free = 0;
 		return (super_fusion(header, next, size, old_header_size));
 	}
-	else if (next->free == 0 || (size > (next->size + size))){
+	else if (next->free == 0 || (size > (next->size + header->size))){
 		ft_putendl("if3");
 		ft_putnbr(size);
+//		free(header+1);
 		return (mallocc(size, g_env.page));}
 	return (NULL);
 }
@@ -149,14 +156,41 @@ void 			*super_fusion(t_header *header, t_header *next, size_t size, size_t old_
 	void 		*end;
 	t_header 	*new_head;
 
-	end = (void *)header + 1 + header->size;
+	if (size <= old_header_size)
+	{
+		end = (void *)(header + 1) + size;
+		new_head = end;
+		new_head->size = old_header_size - size - 24;
+		new_head->next = next;
+		printf("\n\n\n\n 1 head->size : %lu   sizze : %lu   new : %d    %p \n",header->size, size, header->free, new_head);
+	}
+	else if ((next->size - (size - old_header_size) != 0))
+	{
 
-	new_head = end;
-	new_head->size = next->size - (size - old_header_size);
+		end = (void *)header + 1 + header->size;
+		new_head = end;
+		new_head->size = next->size - (size - old_header_size);
+
+		printf("\n\n\n\n 2 head->size : %lu   sizze : %lu   new : %lu  ",header->size, size, new_head->size);
+		new_head->next = next->next; 
+
+	}
+		else 
+			return (header +1);
 	new_head->free = 1;
-	new_head->next = next->next;
-
+/* 	new_head->next = next->next;  */
+//(void *)new_head + 1 + next->size;
 	header->next = new_head;
-
+	header->free = 0;
 	return (header + 1);
+}
+
+
+size_t 		resize_size(size_t size)
+{
+	if (size % 16 != 0)
+		size = (16 -(size % 16) ) + size ;
+	ft_putendl("HEEEEEEEEEERE");
+	ft_putnbr(size);
+	return (size);
 }

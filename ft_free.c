@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/21 23:39:39 by nidzik            #+#    #+#             */
-/*   Updated: 2016/11/26 15:22:25 by nidzik           ###   ########.fr       */
+/*   Updated: 2016/11/29 06:10:48 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,19 @@ void        free(void *ptr)
     t_header	*header;
 	t_page		*page;
 
-	page = g_env.page;
+
 	if (!ptr)
 		return ;
-	if ((page = find_page_free(page, ptr)) == NULL)
-		return ;
-	if ((header = find_head_free(page, ptr)) == NULL)
-		return ;
+	(void)header;
+	(page = find_page_free(g_env.page, ptr)) ;
+	(find_head_free(page, ptr)) ;
+	ft_putchar('\n');
+/* 	ft_putnbr(header->free); */
+	return ;
+/* 	if ((page = find_page_free(page, ptr)) == NULL) */
+/* 		return ; */
+/* 	if ((header = find_head_free(page, ptr)) == NULL) */
+/* 		return ; */
     // Check if header and page exist
 /*     if (ptr && ft_page(page) && ft_header(header)) */
 /*     { */
@@ -67,8 +73,10 @@ t_header		*find_head_free(t_page *page, void *ptr)
 			printf(" h : %p  h+1 %p,*h %p,  h+sof %p,  head+1 %p , ptr : %p   %lu  next : %p\n",head, (void *)head, (head + 1), (void *)head + sizeof(head),(void*)(head +1)  + head->size, ptr, head->size, head->next);fflush(stdout);
 			if (ptr >= (void *)head && ptr < ((void *)(head +1) + head->size))
 			{
+				ft_putendl("ggufoubndit");
 				free_head(head, ptr);
-				return NULL;
+				ft_putnbr(head->free);
+				return (head);
 			}
 			head = head->next;
 		}
@@ -83,8 +91,8 @@ void		free_head(t_header *head, void *ptr)
 
 	if (head)
 	{
-		head->free = 1;
 		munmap(ptr, head->size);
+		head->free = 1;
 		ft_putnbr(head->size);
 		ft_putendl("freed");
 		if (head->next)

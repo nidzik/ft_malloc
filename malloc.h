@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/11 11:55:25 by nidzik            #+#    #+#             */
-/*   Updated: 2016/11/24 20:22:29 by nidzik           ###   ########.fr       */
+/*   Updated: 2016/11/29 01:52:09 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ typedef struct			s_header
 {
 	size_t				size;
 	int					free;
-	time_t				time;
 	void				*next;
 }						t_header;
 
@@ -105,3 +104,4 @@ void		*check_size_ptr(t_header *header, size_t size, void *ptr);
 void 		*check_next(size_t size, t_header *header);
 void        *realloc(void *ptr, size_t size);
 void 		*super_fusion(t_header *header, t_header *next, size_t size, size_t old_header_size);
+size_t      resize_size(size_t s);
