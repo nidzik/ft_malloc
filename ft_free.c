@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/21 23:39:39 by nidzik            #+#    #+#             */
-/*   Updated: 2016/11/29 06:10:48 by nidzik           ###   ########.fr       */
+/*   Updated: 2016/11/30 20:35:26 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,19 +91,37 @@ void		free_head(t_header *head, void *ptr)
 
 	if (head)
 	{
-		munmap(ptr, head->size);
+		(void)ptr;
+		if (head->next){
+		tmp = head->next;
+		printf("\nyolo  here->%lu  next->%lu", head->size, tmp->size);fflush(stdout);		}
+		else {
+			printf("\nyolo  here->%lu  ", head->size);		fflush(stdout);}
 		head->free = 1;
-		ft_putnbr(head->size);
+		ft_putnbr(head->size);		
 		ft_putendl("freed");
-		if (head->next)
+		if (!head->next)
+			munmap(ptr, head->size);
+		else if (head->next)
 		{
 			tmp = head->next;
 			if (tmp->free == 1 )
-				ft_putendl("rdy to merge");
+				merge(head, tmp, ptr);
+/* 				ft_putendl("rdy to merge"); */
 			else
 				ft_putendl("next not free");
 		}
 		ft_putendl("freed anyway");
 	}
+	return ;
+}
+
+void 		merge(t_header *head, t_header *next, void *ptr)
+{
+
+	head->size += next->size + 24;
+	head->next = next->next;
+	munmap(ptr, head->size);
+	ft_putendl("merge ok.");
 	return ;
 }

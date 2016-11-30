@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/24 19:59:35 by nidzik            #+#    #+#             */
-/*   Updated: 2016/11/29 06:17:31 by nidzik           ###   ########.fr       */
+/*   Updated: 2016/11/30 21:16:47 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void		*realloc(void *ptr, size_t size)
 	t_page		*page;
 	t_header	*header;
 	void		*fresh_ptr;
-
+	ft_putendl("STARTING REALLOC");
 	size = resize_size(size);
 	if (!ptr)
 	{
@@ -62,7 +62,8 @@ void		*realloc(void *ptr, size_t size)
 		{
 			fresh_ptr = check_size_ptr(header, size, ptr);
 	ft_putendl("haphap");
-			free(ptr);
+	printf("\n%p  %p \n", ptr, fresh_ptr);fflush(stdout);
+/* 			free(ptr); */
 			ft_putnbr(header->free);
 			return (fresh_ptr);
 		}
@@ -85,7 +86,8 @@ void			*check_size_ptr(t_header *header, size_t size, void *ptr)
  	if (header->size )
 	{
 	ft_putendl("check_head_size");
-		new_ptr = check_next(size, header);
+	new_ptr = check_next(size, header);
+/* 	free(ptr); */
 /* 			printf("\n\n\n\nssssssssssss%d",new_ptr->free); */
 		if (new_ptr)
 			return (new_ptr);
@@ -146,6 +148,7 @@ void 			*check_next(size_t size, t_header *header)
 	else if (next->free == 0 || (size > (next->size + header->size))){
 		ft_putendl("if3");
 		ft_putnbr(size);
+		header->free = 1;
 //		free(header+1);
 		return (mallocc(size, g_env.page));}
 	return (NULL);
@@ -158,11 +161,13 @@ void 			*super_fusion(t_header *header, t_header *next, size_t size, size_t old_
 
 	if (size <= old_header_size)
 	{
+/* 		if (size < (size + old_header_size + 32 )) */
+/* 			fusion_la_fusion() */
 		end = (void *)(header + 1) + size;
 		new_head = end;
 		new_head->size = old_header_size - size - 24;
 		new_head->next = next;
-		printf("\n\n\n\n 1 head->size : %lu   sizze : %lu   new : %d    %p \n",header->size, size, header->free, new_head);
+		printf("\n\n\n\n 1 head->size : %lu   sizze : %lu   new : %d    %lu \n",header->size, size, header->free, old_header_size);
 	}
 	else if ((next->size - (size - old_header_size) != 0))
 	{
@@ -171,7 +176,7 @@ void 			*super_fusion(t_header *header, t_header *next, size_t size, size_t old_
 		new_head = end;
 		new_head->size = next->size - (size - old_header_size);
 
-		printf("\n\n\n\n 2 head->size : %lu   sizze : %lu   new : %lu  ",header->size, size, new_head->size);
+		printf("\n\n\n\n 2 head->size : %lu   sizze : %lu   new : %lu   %lu",header->size, size, new_head->size, old_header_size);
 		new_head->next = next->next; 
 
 	}
@@ -182,6 +187,7 @@ void 			*super_fusion(t_header *header, t_header *next, size_t size, size_t old_
 //(void *)new_head + 1 + next->size;
 	header->next = new_head;
 	header->free = 0;
+	show_alloc_mem();
 	return (header + 1);
 }
 

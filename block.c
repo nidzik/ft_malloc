@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/13 19:11:17 by nidzik            #+#    #+#             */
-/*   Updated: 2016/11/29 00:11:52 by nidzik           ###   ########.fr       */
+/*   Updated: 2016/11/30 17:38:59 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ void		*create_block(size_t size, void *start_page)
 		//printf("search for next head avalible checking : %p, head-next : %p \n",head, head->next ); fflush(stdout);
 		if (head->free == 1 && head->size >= size)
 		{
-/* 			printf("head free and > size\n");fflush(stdout); */
+			printf("head free and > size\n");fflush(stdout);
 			create_head(size, head , head->next);
 			return (head + 1);
 		}
 		if (!head->next )
 			ft_putendl("NULL");
-/* 		printf("end while in create block before head %p = next %p \n", head, head->next);fflush(stdout); */
+		printf("end while in create block before head %p = next %p \n", head, head->next);fflush(stdout);
 		head = head->next; 
 	}
 	if (head->size)

@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/11 11:55:25 by nidzik            #+#    #+#             */
-/*   Updated: 2016/11/29 01:52:09 by nidzik           ###   ########.fr       */
+/*   Updated: 2016/11/30 18:59:06 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void        free(void *ptr);
 t_page      *find_page_free(t_page *page, void *ptr);
 t_header    *find_head_free(t_page *page, void *ptr);
 void        free_head(t_header *head, void *ptr);
-
+void        merge(t_header *head, t_header *next, void *ptr);
 
 /* realloc */
 void	    *find_head(t_page *page, void *ptr);
