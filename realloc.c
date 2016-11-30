@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/24 19:59:35 by nidzik            #+#    #+#             */
-/*   Updated: 2016/11/30 21:36:52 by nidzik           ###   ########.fr       */
+/*   Updated: 2016/11/30 21:39:17 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void		*realloc(void *ptr, size_t size)
 			fresh_ptr = check_size_ptr(header, size, ptr);
 	ft_putendl("haphap");
 	printf("\n%p  %p \n", ptr, fresh_ptr);fflush(stdout);
-	if (fresh_ptr =! ptr)
+	if (fresh_ptr != ptr)
 		free(ptr);
 	ft_putnbr(header->free);
 			return (fresh_ptr);
