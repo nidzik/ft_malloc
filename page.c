@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/18 14:43:29 by nidzik            #+#    #+#             */
-/*   Updated: 2016/11/22 04:49:12 by nidzik           ###   ########.fr       */
+/*   Updated: 2016/12/01 22:05:31 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_page*			find_page(size_t size)
 			if ((size_t)(page->size + size + 32) > (size_t)(get_page_size_max(type)))
 			{
 				page->full = 1;
-				page->next = new_page(type);
+				page->next = new_page(type, size);
 				page = page->next;
 				page->size += size + 32;//+ sizeof(t_header);
 				return (page->start);
@@ -46,7 +46,8 @@ t_page*			find_page(size_t size)
 		else
 			break ;
 	}
-	page->next = new_page(type);
+		
+	page->next = new_page(type, size);
 	page = page->next;
 				ft_putendl("ASDASDASDASD");
 /* /!\ ca va peut etre tout faire bug x) */

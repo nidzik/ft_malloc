@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/24 19:59:35 by nidzik            #+#    #+#             */
-/*   Updated: 2016/11/30 21:39:17 by nidzik           ###   ########.fr       */
+/*   Updated: 2016/12/01 20:31:47 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,11 @@
 void	       *find_head(t_page *page, void *ptr)
 {
 	t_header   *head;
-
+		ft_putchar('w');
 	if (page)
 	{
 		head = page->start;
+
 		while (head)
 		{
 			printf("head %p  to %p , ptr : %p\n",head, ((void *)head +sizeof(head) + head->size), ptr);
@@ -32,7 +33,7 @@ void	       *find_head(t_page *page, void *ptr)
 	return NULL;
 }
 
-void		*realloc(void *ptr, size_t size)
+void		*reallocc(void *ptr, size_t size)
 {
 	t_page		*page;
 	t_header	*header;
@@ -56,8 +57,8 @@ void		*realloc(void *ptr, size_t size)
 		ft_putendl("go ti reall");
 		page = find_page_free(g_env.page, ptr);
 		header = find_head(page, ptr);
-		if (header == NULL || header->free == 1)
-			return NULL;
+		if (header == NULL || header->free == 1){ft_putnbr(header->size);
+			return NULL;}
 		else 
 		{
 			fresh_ptr = check_size_ptr(header, size, ptr);
@@ -87,7 +88,7 @@ void			*check_size_ptr(t_header *header, size_t size, void *ptr)
  	if (header->size )
 	{
 	ft_putendl("check_head_size");
-	new_ptr = check_next(size, header);
+	new_ptr = check_next(size, header, ptr);
 /* 	free(ptr); */
 /* 			printf("\n\n\n\nssssssssssss%d",new_ptr->free); */
 		if (new_ptr)
@@ -103,12 +104,11 @@ void			*check_size_ptr(t_header *header, size_t size, void *ptr)
 	return (NULL);
 }
 
-void 			*check_next(size_t size, t_header *header)
+void 			*check_next(size_t size, t_header *header, void *ptr)
 {
 	t_header 	*next ;
 	size_t 		old_header_size;
 
-	ft_putendl("check_next");
 	if (header->next)
 	{
 		ft_putendl("yes");
@@ -121,6 +121,8 @@ void 			*check_next(size_t size, t_header *header)
 	{
 		next = NULL;
 		ft_putendl("ololol");
+		return(check_next_null(size,header, ptr));
+		
 	}
 	/*if (next->free == 1 && size < (next->size + size) && (header->size + next->size) <= (size + sizeof(header) + 4))
 	{
@@ -133,7 +135,6 @@ void 			*check_next(size_t size, t_header *header)
 		header->free = 0;
 		}*/
 
-		
 	if ((next->free == 1 && size <= (next->size + header->size + 24)) || size <= header->size)// && (header->size + next->size + 16) > (size))
 	{
 	ft_putendl("if2");
@@ -144,40 +145,66 @@ void 			*check_next(size_t size, t_header *header)
 		old_header_size = header->size;
 		header->size = size;
 		header->free = 0;
-		return (super_fusion(header, next, size, old_header_size));
+		return (super_fusion(header, next, old_header_size, ptr));
 	}
 	else if (next->free == 0 || (size > (next->size + header->size))){
 		ft_putendl("if3");
 		ft_putnbr(size);
 		header->free = 1;
-//		free(header+1);
 		return (mallocc(size, g_env.page));}
 	return (NULL);
 }
 
-void 			*super_fusion(t_header *header, t_header *next, size_t size, size_t old_header_size)
+void		*check_next_null(size_t size, t_header *header, void *ptr)
+{
+	void *ret;
+	void *sav;
+
+	ret = NULL;
+	sav = NULL;
+	if (size > header->size)
+	{
+		ret = mallocc(size, g_env.page);
+		sav = ret;
+		ft_putnbr(header->size);
+		ft_atoi_hex(ret);
+		ft_memmove(ret, ptr, header->size);
+		PHEXA(sav);
+		return(sav);
+	}
+	else if (size <= header->size - 32)
+	{
+		header->next = NULL;
+		header->size = size;
+		header->free = 0;
+		ret = super_fusion(header, NULL, header->size, ptr);
+	}
+	return (ret);
+}
+
+void 			*super_fusion(t_header *header, t_header *next, size_t old_header_size, void *ptr)
 {
 	void 		*end;
 	t_header 	*new_head;
-
-	if (size <= old_header_size)
+	(void)ptr;
+	if (header->size <= old_header_size)
 	{
 /* 		if (size < (size + old_header_size + 32 )) */
 /* 			fusion_la_fusion() */
-		end = (void *)(header + 1) + size;
+		end = (void *)(header + 1) + header->size;
 		new_head = end;
-		new_head->size = old_header_size - size - 24;
+		new_head->size = old_header_size - header->size - 24;
 		new_head->next = next;
-		printf("\n\n\n\n 1 head->size : %lu   sizze : %lu   new : %d    %lu \n",header->size, size, header->free, old_header_size);
+		printf("\n\n\n\n 1 head->size : %lu    new : %d    %lu \n",header->size, header->free, old_header_size);
 	}
-	else if ((next->size - (size - old_header_size) != 0))
+	else if ((next->size - (header->size - old_header_size) != 0))
 	{
 
 		end = (void *)header + 1 + header->size;
 		new_head = end;
-		new_head->size = next->size - (size - old_header_size);
+		new_head->size = next->size - (header->size - old_header_size);
 
-		printf("\n\n\n\n 2 head->size : %lu   sizze : %lu   new : %lu   %lu",header->size, size, new_head->size, old_header_size);
+		printf("\n\n\n\n 2 head->size : %lu   new : %lu   %lu",header->size, new_head->size, old_header_size);
 		new_head->next = next->next; 
 
 	}
@@ -188,7 +215,7 @@ void 			*super_fusion(t_header *header, t_header *next, size_t size, size_t old_
 //(void *)new_head + 1 + next->size;
 	header->next = new_head;
 	header->free = 0;
-	show_alloc_mem();
+
 	return (header + 1);
 }
 

@@ -6,11 +6,17 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/11 09:31:59 by nidzik            #+#    #+#             */
-/*   Updated: 2016/11/30 19:17:49 by nidzik           ###   ########.fr       */
+/*   Updated: 2016/12/01 23:44:03 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
+#include <unistd.h>
+#include <string.h>
+
+
+
+#define M (1024 * 1024)
 
 int main(int ac, char ** av)
 {
@@ -19,8 +25,75 @@ int main(int ac, char ** av)
   char *str3;
   char *str4;
   int i;
-
+  (void)ac;
   init_genv();
+
+/*
+  char yol[4][4];
+
+  (void)yol;
+  str = (char *)mallocc(10, g_env.page);
+  str3 = mallocc(5000,g_env.page);
+    str4 = mallocc(500000,g_env.page);
+	strcpy(str4, "bonjour");
+	str2 = reallocc(str4, 1000000);
+  show_alloc_mem();fflush(stdout);
+ft_putendl(str2);  
+return 0;
+*/
+
+
+  malloccc(1024);
+  malloccc(1024 * 32);
+  malloccc(1024 * 1024);
+  malloccc(1024 * 1024 * 16);
+  malloccc(1024 * 1024 * 128);
+  show_alloc_mem();
+  return (0);
+/*
+	  char *addr;
+
+	  addr = malloccc(16);
+	  free(NULL);
+	  
+	  free((void*)addr + 5);
+	  if (reallocc((void*)addr + 5, 10) == NULL)
+		  printf("Bonjours\n");
+  show_alloc_mem();fflush(stdout);
+	  return (0);
+*/
+
+/*
+  char    *addr1;
+  char    *addr2;
+  char    *addr3;
+
+
+  addr1 = (char*)malloccc(16*M);
+  strcpy(addr1, "Bonjours\n");
+  printf("%s\n",addr1);
+  addr2 = (char*)malloccc(16*M);
+  addr3 = (char*)reallocc(addr1, 128*M);
+  addr3[127*M] = 42;
+  printf("%s\n",addr3);
+
+  return (0);
+*/
+
+
+/*
+  addr1 = (char *)malloccc(16*M);
+  strcpy(addr1, "Bonjours\n");
+  printf("WTF..%p",addr1);fflush(stdout);
+  show_alloc_mem();fflush(stdout);
+  addr3 = (char*)reallocc(addr1, 128*M);
+  addr3[127*M] = 42;
+  printf("WTF..%s",addr1);
+
+  return (0);
+*/
+
+/*
   (void)ac;
   printf("%d",getpagesize());fflush(stdout);
   str =  mallocc(sizeof(char) * (ft_strlen(av[1]) +1), g_env.page);
@@ -37,12 +110,12 @@ free(str3);
  free(str2);
 show_alloc_mem();
  ft_putendl("UPUPUP");
-printf("\n reall %p\n",realloc(str, 150));fflush(stdout);
+printf("\n reall %p\n",reallocc(str, 150));fflush(stdout);
   ft_putendl("reMALLOC");
-/* free(str); */
+free(str);
  show_alloc_mem();
   return 0;
-
+*/
 
 /*
   int j;

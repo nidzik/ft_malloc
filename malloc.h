@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/11 11:55:25 by nidzik            #+#    #+#             */
-/*   Updated: 2016/11/30 18:59:06 by nidzik           ###   ########.fr       */
+/*   Updated: 2016/12/01 23:40:37 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 #define PAGE_TINY_SIZE TINY_SIZE * 100
 #define PAGE_SMALL_SIZE SMALL_SIZE * 100
 
+#define PHEXA(...) ft_atoi_hex(ret)
 /*
  * s_page structure to stock all page allocated informations
  */
@@ -77,12 +78,13 @@ void 		ft_header_info(void *header, size_t size);
 void		ft_atoi_hex(void *ptr);
 
 /* 			Malloc functions 		*/
+void 		*malloccc(size_t size);
 void    	*mallocc(size_t size, t_page *p);
 
 
 void		init_genv();
 size_t		get_type(size_t size);
-t_page 		*new_page(size_t size);
+t_page 		*new_page(size_t type, size_t size);
 void		*create_block(size_t size, void *start_page);
 void		create_head(size_t size, t_header *head, t_header *next);
 t_page		*find_page(size_t type);
@@ -101,7 +103,8 @@ void        merge(t_header *head, t_header *next, void *ptr);
 /* realloc */
 void	    *find_head(t_page *page, void *ptr);
 void		*check_size_ptr(t_header *header, size_t size, void *ptr);
-void 		*check_next(size_t size, t_header *header);
-void        *realloc(void *ptr, size_t size);
-void 		*super_fusion(t_header *header, t_header *next, size_t size, size_t old_header_size);
+void 		*check_next(size_t size, t_header *header, void *ptr);
+void        *reallocc(void *ptr, size_t size);
+void 		*super_fusion(t_header *header, t_header *next, size_t old_header_size, void *ptr);
 size_t      resize_size(size_t s);
+void        *check_next_null(size_t size, t_header *header, void *ptr);

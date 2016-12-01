@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/21 23:39:39 by nidzik            #+#    #+#             */
-/*   Updated: 2016/11/30 20:35:26 by nidzik           ###   ########.fr       */
+/*   Updated: 2016/11/30 22:35:13 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ t_header		*find_head_free(t_page *page, void *ptr)
 			{
 				ft_putendl("ggufoubndit");
 				free_head(head, ptr);
+				page->size -= head->size;
 				ft_putnbr(head->free);
 				return (head);
 			}
