@@ -6,11 +6,11 @@
 #    By: nidzik <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/11 10:34:54 by nidzik            #+#    #+#              #
-#    Updated: 2016/11/24 20:18:48 by nidzik           ###   ########.fr        #
+#    Updated: 2016/12/02 02:57:59 by nidzik           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
-NAME = malloc
+NAME = libft_malloc_$(HOSTTYPE).so
 
 # LIBFT
 LFTPATH = libft/
@@ -33,14 +33,13 @@ INCLUDES = $(INCLUDE) $(LFTIPATH) $(GRAPHINC)
 
 
 BASEFLAGS = -Wall -Wextra
-CFLAGS = $(BASEFLAGS) -Werror -O2 -g
+CFLAGS = $(BASEFLAGS) -Werror -O2 -g 
 
 
 LFTCALL = all
 LFTRE = re
 
-SRCSFILES = main.c \
-			malloc.c \
+SRCSFILES = malloc.c \
 			init.c \
 			block.c \
 			ft_atoi_hex.c \
@@ -63,7 +62,7 @@ all: l $(NAME)
 
 $(NAME): $(OBJECTS)
 	@echo "$(Y)[COMPILING MALLOC] $(G) $(CC) -o $@ $(CFLAGS) objs.o $(LIBS) $(E)"
-	@$(CC) -o $@ $(CFLAGS) -g $(OBJECTS) $(INCLUDES) $(LIBS)
+	@$(CC) -shared -o $@ $(CFLAGS) -g $(OBJECTS) $(INCLUDES) $(LIBS)
 	@echo "$(Y)[COMPILING MALLOC DONE]$(E)"
 
 $(OBJECTS): $(OBJPATH)/%.o : $(SRCPATH)/%.c
