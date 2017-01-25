@@ -1,0 +1,143 @@
+block.c:void		*create_block(size_t size, void *start_page)
+block.c:	page =(void * )( (char *)(head) - sizeof(page) + 8);
+block.c:		if (head->free == 1 && head->size >= size)
+block.c:			//		printf("head free and > size\n");fflush(stdout);
+block.c:			create_head(size, head , head->next);
+block.c:	if (head->size)
+block.c:		next = (char *)(head) + head->size + 32;
+block.c:/* 		printf("header->size  start at %p end at %p  test : %p\n",head ,head->next,  head + head->size );fflush(stdout); */
+block.c:	create_head(size, head, NULL);
+block.c://	page->size += head->size + sizeof(head);
+block.c:	printf("head : %p   head + sizeof head : %p \n",head, (head) + sizeof(head));fflush(stdout);
+block.c:	printf("\n\n SIZEOF %lu HEAD \n\n",sizeof(head));fflush(stdout);
+block.c:void		create_head(size_t size, t_header *head, t_header *next)
+block.c:	if (size % 16 != 0)
+block.c:		head->size = (16 -(size % 16) ) + size ;
+block.c:		head->size = size;
+block.c:/* 	printf("\n\n SIZEOF %lu HEAD \n\n",sizeof(head));fflush(stdout); */
+block.c:/* 	printf("creating header at %p \nhstart : %p/!\\ headsizeof+size : %p \n", head, head + sizeof(head), (void *)head + sizeof(head) + size );fflush(stdout); */
+ft_free.c://			printf("\n\npage : %p    %p  ptr : %p   pstart+=psize %p   size : %d \n\n", page,((void *) page + sizeof(t_page)),ptr,(void *)page->start + page->size, (int)page->size );fflush(stdout);
+ft_free.c:			if (ptr > ((void *)page->start + page->size)){ft_putchar('a');
+ft_free.c:			else if (ptr >= (void *)page && (ptr < ((void *)page->start) + page->size)){ft_putchar('b');
+ft_free.c:			//	printf(" h : %p  h+1 %p,*h %p,  h+sof %p,  head+1 %p , ptr : %p   %lu  next : %p\n",head, (void *)head, (head + 1), (void *)head + sizeof(head),(void*)(head +1)  + head->size, ptr, head->size, head->next);fflush(stdout);
+ft_free.c:			if (ptr >= (void *)head && ptr < ((void *)(head +1) + head->size))
+ft_free.c://				page->size -= head->size + 32;
+ft_free.c:			//printf("\nyolo  here->%lu  next->%lu", head->size, tmp->size);fflush(stdout);		
+ft_free.c://		ft_putnbr(head->size);		
+ft_free.c:			munmap(ptr, head->size);
+ft_free.c:	head->size += next->size + 24;
+ft_free.c:	munmap(ptr, head->size);
+init.c:	p.size = 0;
+init.c:size_t		get_type(size_t size)
+init.c:	if (size < TINY_SIZE)
+init.c:	else if (size >= TINY_SIZE && size < SMALL_SIZE)
+init.c:size_t		get_page_size_max(size_t type)
+init.c:t_page		*new_page(size_t type, size_t size)
+init.c:		p = mmap(0, sizeof(p) + get_page_size_max(type), FLAGS);
+init.c:		p->size = 0;
+init.c:		p->start =  p + sizeof(p);//mmap(0, get_page_size_max(type), FLAGS);
+init.c:		printf("new page type %d created %p\nstart at %p\nto %p, size of %d\n",(int)type, p,p->start,p->start + get_page_size_max(type), (int)p->size);fflush(stdout);
+init.c:		p = mmap(0, sizeof(p) + size + 24, FLAGS);
+init.c:		p->size = 0;
+init.c:		p->start =  p + sizeof(p);
+main.c:  printf("%d",getpagesize());fflush(stdout);
+main.c:  str =  mallocc(sizeof(char) * (ft_strlen(av[1]) +1), g_env.page);
+main.c:  str2 =  mallocc(sizeof(char) * (ft_strlen(av[2]) +1), g_env.page);    
+main.c: str3 = mallocc(sizeof(char) * (ft_strlen(av[3]) +1), g_env.page);
+main.c:  str =  mallocc(sizeof(char) * (ft_strlen(av[1]) +1), g_env.page);
+main.c:str =  mallocc(sizeof(char) * (ft_strlen(av[1]) +1), g_env.page);
+main.c:str =  mallocc(sizeof(char) * (ft_strlen(av[1]) +1), g_env.page);
+main.c:str =  mallocc(sizeof(char) * (ft_strlen(av[1]) +1), g_env.page);
+main.c:str =  mallocc(sizeof(char) * (ft_strlen(av[1]) +1), g_env.page);
+main.c:str =  mallocc(sizeof(char) * (ft_strlen(av[1]) +1), g_env.page);
+main.c:str =  mallocc(sizeof(char) * (ft_strlen(av[1]) +1), g_env.page);
+main.c:str =  mallocc(sizeof(char) * (ft_strlen(av[1]) +1), g_env.page);
+main.c:  str2 = mallocc(sizeof(char) * (ft_strlen(av[2]) +1), g_env.page);
+main.c:  str3 = mallocc(sizeof(char) * (ft_strlen(av[3]) +1), g_env.page);
+main.c:  str4 = mallocc(sizeof(char) * (ft_strlen(av[1]) +1), g_env.page);
+main.c:  //str3 = mallocc(sizeof(char) * (ft_strlen(av[3]) +1), g_env.page);
+malloc.c:void		*malloc(size_t size)
+malloc.c:	return(mallocc(size, g_env.page));
+malloc.c:void		*mallocc(size_t size, t_page *p)
+malloc.c:	size_t 	type;
+malloc.c:	type = get_type(size);
+malloc.c:			return (mmap(popopopo->start, size, FLAGS));
+malloc.c:		g_env.page = new_page(type, size);
+malloc.c:			g_env.page->size += size + 32;
+malloc.c:		return (create_block(size, g_env.page->start));
+malloc.c:/* 			find_page(size); */
+malloc.c:			return (create_block(size, find_page(size)));
+page.c:t_page*			find_page(size_t size)
+page.c:	size_t		type;
+page.c:	type = get_type(size);
+page.c:/* 			printf(" \n %lu    %lu \n", page->size +size + 32, page->size + size + sizeof(t_page)); */
+page.c:			if ((size_t)(page->size + size + 32) > (size_t)(get_page_size_max(type)))
+page.c:				page->next = new_page(type, size);
+page.c:				page->size += size + 32;//+ sizeof(t_header);
+page.c:				page->size += size + 32;//+ sizeof(t_header);
+page.c:				printf("%d\n",(int)page->size);fflush(stdout);
+page.c:	page->next = new_page(type, size);
+page.c:				page->size += size + 32;// + sizeof(t_header);
+realloc.c:/* 			printf("head %p  to %p , ptr : %p\n",head, ((void *)head +sizeof(head) + head->size), ptr); */
+realloc.c:			if (ptr >= (void *)head && ptr < ((void *)(head + 1) + head->size))
+realloc.c:void		*realloc(void *ptr, size_t size)
+realloc.c:	size = resize_size(size);
+realloc.c:		ft_putendl("no ptr go to mall(size)");
+realloc.c:		return (ptr = mallocc(size, g_env.page));
+realloc.c:	else if (!size && ptr)
+realloc.c:		ft_putendl("!size && ptr go to mall(1)");
+realloc.c:	else if (ptr && size)
+realloc.c:		ft_putendl("head info :  size : ");
+realloc.c:		ft_putnbr(header->size);
+realloc.c:			fresh_ptr = check_size_ptr(header, size, ptr);
+realloc.c:void			*check_size_ptr(t_header *header, size_t size, void *ptr)
+realloc.c:	ft_putendl("check_size_ptr");
+realloc.c: 	if (header->size )
+realloc.c:	ft_putendl("check_head_size");
+realloc.c:	new_ptr = check_next(size, header, ptr);
+realloc.c:/* 	else if (header->size > size)// ou sup a size +sizeof(head) + 4; */
+realloc.c:	else if (header->size == size)
+realloc.c:void 			*check_next(size_t size, t_header *header, void *ptr)
+realloc.c:	size_t 		old_header_size;
+realloc.c:		return(check_next_null(size,header, ptr));
+realloc.c:	/*if (next->free == 1 && size < (next->size + size) && (header->size + next->size) <= (size + sizeof(header) + 4))
+realloc.c:		header->size = size;
+realloc.c:	if (size <= header->size )
+realloc.c:		ft_putendl("reall size < head->size");
+realloc.c:	if ((next->free == 1 && size <= (next->size + header->size + 24)))// && (header->size + next->size + 16) > (size))
+realloc.c:		old_header_size = header->size;
+realloc.c:		header->size = size;
+realloc.c:		return (super_fusion(header, next, old_header_size, ptr));
+realloc.c:	else if (next->free == 0 || (size > (next->size + header->size))){
+realloc.c:		ft_putnbr(size);
+realloc.c:		return (mallocc(size, g_env.page));}
+realloc.c:void		*check_next_null(size_t size, t_header *header, void *ptr)
+realloc.c:	if (size > header->size)
+realloc.c:		ret = mallocc(size, g_env.page);
+realloc.c:		ft_putnbr(header->size);
+realloc.c:		ft_memmove(ret, ptr, header->size);
+realloc.c:	else if (size <= header->size - 32)
+realloc.c:		header->size = size;
+realloc.c:		ret = super_fusion(header, NULL, header->size, ptr);
+realloc.c:void 			*super_fusion(t_header *header, t_header *next, size_t old_header_size, void *ptr)
+realloc.c:	if (header->size <= old_header_size)
+realloc.c:/* 		if (size < (size + old_header_size + 32 )) */
+realloc.c:		end = (void *)(header + 1) + header->size;
+realloc.c:		new_head->size = old_header_size - header->size - 24;
+realloc.c:		printf("\n\n\n\n 1 head->size : %lu    header->free : %d    old header size %lu \n",header->size, header->free, old_header_size);
+realloc.c:	else if ((next->size - (header->size - old_header_size) != 0))
+realloc.c:		end = (void *)header + 1 + header->size;
+realloc.c:		new_head->size = next->size - (header->size - old_header_size);
+realloc.c:		printf("\n\n\n\n 2 head->size : %lu   new : %lu   %lu",header->size, new_head->size, old_header_size);
+realloc.c://(void *)new_head + 1 + next->size;
+realloc.c:size_t 		resize_size(size_t size)
+realloc.c:	if (size % 16 != 0)
+realloc.c:		size = (16 -(size % 16) ) + size ;
+realloc.c:	ft_putnbr(size);
+realloc.c:	return (size);
+show_alloc_mem.c:	static size_t  op = 0;
+show_alloc_mem.c:		printf(" pstart+size %p size %lu ",p->start + p->size,p->size);fflush(stdout);
+show_alloc_mem.c:				printf("%lu ptr : %p  h->size %lu   h->free %d  ",op++,ptr,h->size, h->free);fflush(stdout);
+show_alloc_mem.c:				ft_atoi_hex((char *)ptr + h->size);
+show_alloc_mem.c:				printf("nb cot %lu \n",h->size);fflush(stdout);
+show_alloc_mem.c://				ft_putnbr(h->size);

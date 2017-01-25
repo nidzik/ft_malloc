@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/11 09:31:59 by nidzik            #+#    #+#             */
-/*   Updated: 2016/12/01 23:44:03 by nidzik           ###   ########.fr       */
+/*   Updated: 2017/01/24 20:33:10 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int main(int ac, char ** av)
   char *str4;
   int i;
   (void)ac;
-  init_genv();
+  //init_genv();
 
 /*
   char yol[4][4];
@@ -42,13 +42,16 @@ ft_putendl(str2);
 return 0;
 */
 
-
-  malloccc(1024);
-  malloccc(1024 * 32);
-  malloccc(1024 * 1024);
-  malloccc(1024 * 1024 * 16);
-  malloccc(1024 * 1024 * 128);
-  show_alloc_mem();
+//  str = malloccc(1);
+  str2 = mallocc(1, g_env.page);
+//  printf("\n :: %p \n", str);
+  str2 = "q";
+  ft_putendl(str2);
+//  str2 = malloc(1);
+   show_alloc_mem();
+  // str3 = realloc(str,2);	  
+  
+  //show_alloc_mem();
   return (0);
 /*
 	  char *addr;

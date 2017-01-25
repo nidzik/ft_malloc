@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/11 11:55:25 by nidzik            #+#    #+#             */
-/*   Updated: 2016/12/01 23:40:37 by nidzik           ###   ########.fr       */
+/*   Updated: 2017/01/24 01:39:13 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void 		ft_header_info(void *header, size_t size);
 void		ft_atoi_hex(void *ptr);
 
 /* 			Malloc functions 		*/
-void 		*malloccc(size_t size);
+void 		*malloc(size_t size);
 void    	*mallocc(size_t size, t_page *p);
 
 
@@ -104,7 +104,7 @@ void        merge(t_header *head, t_header *next, void *ptr);
 void	    *find_head(t_page *page, void *ptr);
 void		*check_size_ptr(t_header *header, size_t size, void *ptr);
 void 		*check_next(size_t size, t_header *header, void *ptr);
-void        *reallocc(void *ptr, size_t size);
+void        *realloc(void *ptr, size_t size);
 void 		*super_fusion(t_header *header, t_header *next, size_t old_header_size, void *ptr);
 size_t      resize_size(size_t s);
 void        *check_next_null(size_t size, t_header *header, void *ptr);

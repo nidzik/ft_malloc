@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/24 19:59:35 by nidzik            #+#    #+#             */
-/*   Updated: 2016/12/01 20:31:47 by nidzik           ###   ########.fr       */
+/*   Updated: 2017/01/25 05:36:03 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,15 @@
 void	       *find_head(t_page *page, void *ptr)
 {
 	t_header   *head;
-		ft_putchar('w');
+		printf("find_head, page %p \n", page); 
 	if (page)
 	{
 		head = page->start;
-
+		printf("head %p \n", head); 
+		ft_putchar('w');
 		while (head)
 		{
-			printf("head %p  to %p , ptr : %p\n",head, ((void *)head +sizeof(head) + head->size), ptr);
+/* 			printf("head %p  to %p , ptr : %p\n",head, ((void *)head +sizeof(head) + head->size), ptr); */
 			if (ptr >= (void *)head && ptr < ((void *)(head + 1) + head->size))
 			{
 				ft_putendl("find");
@@ -33,7 +34,7 @@ void	       *find_head(t_page *page, void *ptr)
 	return NULL;
 }
 
-void		*reallocc(void *ptr, size_t size)
+void		*realloc(void *ptr, size_t size)
 {
 	t_page		*page;
 	t_header	*header;
@@ -54,19 +55,37 @@ void		*reallocc(void *ptr, size_t size)
 	}
 	else if (ptr && size)
 	{
-		ft_putendl("go ti reall");
+		ft_putendl("go ti reall, searching page...");
 		page = find_page_free(g_env.page, ptr);
+		ft_putendl("go ti reall searching head ...");
 		header = find_head(page, ptr);
-		if (header == NULL || header->free == 1){ft_putnbr(header->size);
-			return NULL;}
+		ft_putendl("go ti reall finding head !");
+
+		if (header)
+		{
+			ft_putendl("head info :  size : ");
+			//ft_putnbr(header->size);
+			
+		}
+		if (header == NULL || header->free == 1)
+		{
+			ft_putendl("header == NULL || header->free == 1)");
+			return NULL;
+		}
 		else 
 		{
+			ft_putendl("y");
 			fresh_ptr = check_size_ptr(header, size, ptr);
-	ft_putendl("haphap");
-	printf("\n%p  %p \n", ptr, fresh_ptr);fflush(stdout);
-	if (fresh_ptr != ptr)
-		free(ptr);
-	ft_putnbr(header->free);
+			ft_putendl("haphap");
+/* 	printf("\n%p  %p \n", ptr, fresh_ptr);fflush(stdout); */
+			if (fresh_ptr != ptr)
+			{
+
+				ft_putendl("free ptr after realloc");
+				//ft_memcpy(fresh_ptr, ptr, size);
+				free(ptr);
+			}
+//			ft_putnbr(header->free);
 			return (fresh_ptr);
 		}
 	}
@@ -134,8 +153,13 @@ void 			*check_next(size_t size, t_header *header, void *ptr)
 		header->size = size;
 		header->free = 0;
 		}*/
-
-	if ((next->free == 1 && size <= (next->size + header->size + 24)) || size <= header->size)// && (header->size + next->size + 16) > (size))
+	if (size <= header->size )
+	{	
+		ft_putendl("reall size < head->size");
+		header->free = 0;
+		return (ptr);
+	}
+	if ((next->free == 1 && size <= (next->size + header->size + 24)))// && (header->size + next->size + 16) > (size))
 	{
 	ft_putendl("if2");
 		if (next->next)
@@ -149,7 +173,7 @@ void 			*check_next(size_t size, t_header *header, void *ptr)
 	}
 	else if (next->free == 0 || (size > (next->size + header->size))){
 		ft_putendl("if3");
-		ft_putnbr(size);
+		//ft_putnbr(size);
 		header->free = 1;
 		return (mallocc(size, g_env.page));}
 	return (NULL);
@@ -162,18 +186,24 @@ void		*check_next_null(size_t size, t_header *header, void *ptr)
 
 	ret = NULL;
 	sav = NULL;
-	if (size > header->size)
+	ft_putendl("entering checknextnull");
+	if (size >= header->size)
 	{
+	ft_putendl("checknextnull if ");
 		ret = mallocc(size, g_env.page);
 		sav = ret;
-		ft_putnbr(header->size);
-		ft_atoi_hex(ret);
-		ft_memmove(ret, ptr, header->size);
-		PHEXA(sav);
+//		ft_putnbr(header->size);
+		//ft_atoi_hex(ret);
+
+		ft_memmove(sav, ptr, size);
+		//PHEXA(sav);
+		printf("++sav:%p  ret:%p   ptr : %p \n",sav,ret, ptr);fflush(stdout);
+		ft_putendl("aft");
 		return(sav);
 	}
 	else if (size <= header->size - 32)
 	{
+	ft_putendl("checknextnull eif ");
 		header->next = NULL;
 		header->size = size;
 		header->free = 0;
@@ -195,7 +225,7 @@ void 			*super_fusion(t_header *header, t_header *next, size_t old_header_size, 
 		new_head = end;
 		new_head->size = old_header_size - header->size - 24;
 		new_head->next = next;
-		printf("\n\n\n\n 1 head->size : %lu    new : %d    %lu \n",header->size, header->free, old_header_size);
+		printf("\n\n\n\n 1 head->size : %lu    header->free : %d    old header size %lu \n",header->size, header->free, old_header_size);
 	}
 	else if ((next->size - (header->size - old_header_size) != 0))
 	{
@@ -225,6 +255,6 @@ size_t 		resize_size(size_t size)
 	if (size % 16 != 0)
 		size = (16 -(size % 16) ) + size ;
 	ft_putendl("HEEEEEEEEEERE");
-	ft_putnbr(size);
+//	ft_putnbr(size);
 	return (size);
 }

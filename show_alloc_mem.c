@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 13:12:07 by nidzik            #+#    #+#             */
-/*   Updated: 2016/11/24 19:27:42 by nidzik           ###   ########.fr       */
+/*   Updated: 2017/01/25 05:59:56 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void			show_alloc_mem()
 	void		*ptr;
 	static size_t  op = 0;
 	p = g_env.page;
+		ft_putstr("begin show");
 	while (p)
 	{
 		ft_putstr("page start : ");
@@ -31,13 +32,16 @@ void			show_alloc_mem()
 			if (!h->free || h->free)
 					{
 				ptr = h + 1;
-				printf("%lu h->size %lu   h->free %d  ",op++,h->size, h->free);fflush(stdout);
+				printf("%lu ptr : %p  h->size %lu   h->free %d  ",op++,ptr,h->size, h->free);fflush(stdout);
 				ft_atoi_hex(h + 1);
 				ft_putstr(" to ");
 				ft_atoi_hex((char *)ptr + h->size);
 				ft_putstr(" octets : ");
-				ft_putnbr(h->size);
-				printf(" next %p ",h->next);fflush(stdout);
+//				ft_putendl("avt printf in show alloc mem ");
+//				printf("nb cot %lu \n",h->size);fflush(stdout);
+//				ft_putnbr(h->size);
+//				if (h->next)
+					//			printf("\n next %p ",h->next);fflush(stdout);
 				ft_putchar('\n');
 				}
 			h = h->next;

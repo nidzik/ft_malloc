@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/13 15:16:23 by nidzik            #+#    #+#             */
-/*   Updated: 2016/12/01 22:04:28 by nidzik           ###   ########.fr       */
+/*   Updated: 2017/01/24 03:31:45 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ t_page		*new_page(size_t type, size_t size)
 	}
 	if (type == 1 || type == 2)
 	{
+		ft_putendl("creating page type 1-2");
 		p->size = 0;
 		p->full = 0;
 		p->start =  p + sizeof(p);//mmap(0, get_page_size_max(type), FLAGS);
@@ -68,6 +69,7 @@ t_page		*new_page(size_t type, size_t size)
 	}
 	else 
 	{
+		ft_putendl("creating page type 3");
 		p = mmap(0, sizeof(p) + size + 24, FLAGS);
 		p->type = type;
 		p->size = 0;

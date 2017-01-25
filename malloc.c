@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/11 11:24:23 by nidzik            #+#    #+#             */
-/*   Updated: 2016/12/01 22:19:27 by nidzik           ###   ########.fr       */
+/*   Updated: 2017/01/24 04:25:09 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 t_env		g_env;
 
-void		*malloccc(size_t size)
+void		*malloc(size_t size)
 {
+			ft_putchar('f');
 	return(mallocc(size, g_env.page));
 }
 void		*mallocc(size_t size, t_page *p)
@@ -29,7 +30,7 @@ void		*mallocc(size_t size, t_page *p)
 		printf("page do not exist %d \n", (int)type);fflush(stdout);
 /*		if (type == 3)
 		{
-			ft_putchar('f');
+
 			popopopo = new_page(type);
 			return (mmap(popopopo->start, size, FLAGS));
 		}
@@ -39,7 +40,7 @@ void		*mallocc(size_t size, t_page *p)
 			g_env.page->size += size + 32;
 			//}
 		return (create_block(size, g_env.page->start));
-		printf("malloc at %p \n\n", (g_env.page->start));fflush(stdout);
+/* 		printf("malloc at %p \n\n", (g_env.page->start));fflush(stdout); */
 	}
 	else if (p)
 	{

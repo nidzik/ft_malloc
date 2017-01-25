@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/18 14:43:29 by nidzik            #+#    #+#             */
-/*   Updated: 2016/12/01 22:05:31 by nidzik           ###   ########.fr       */
+/*   Updated: 2017/01/25 05:56:33 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_page*			find_page(size_t size)
 /* 		printf("pageol %p   pageatrat %p   pagenext %p",page, page->start, page->next );fflush(stdout); */
 		if (page->type == type && page->full == 0)
 		{
-/* 			printf(" \n %lu    %lu \n", page->size +size + 32, page->size + size + sizeof(t_page)); */
+			printf(" \n %lu    %lu   %lu \n", page->size +size + 32, page->size + size + sizeof(t_page), get_page_size_max(type));
 			if ((size_t)(page->size + size + 32) > (size_t)(get_page_size_max(type)))
 			{
 				page->full = 1;
@@ -37,7 +37,7 @@ t_page*			find_page(size_t size)
 			{
 
 				page->size += size + 32;//+ sizeof(t_header);
-					printf("%d\n",(int)page->size);
+				printf("page size when searching for a new head %d\n",(int)page->size);fflush(stdout);
 				return (page->start);
 			}
 		}
@@ -50,6 +50,7 @@ t_page*			find_page(size_t size)
 	page->next = new_page(type, size);
 	page = page->next;
 				ft_putendl("ASDASDASDASD");
+				printf("size : %lu \n",size);
 /* /!\ ca va peut etre tout faire bug x) */
 				page->size += size + 32;// + sizeof(t_header);
 	return (page->start);
