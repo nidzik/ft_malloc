@@ -6,12 +6,15 @@
 #    By: jwalle <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/09/20 17:39:34 by jwalle            #+#    #+#              #
-#    Updated: 2017/01/25 05:23:22 by nidzik           ###   ########.fr        #
+#    Updated: 2017/01/25 19:49:25 by nidzik           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+# launch with LD_PRELOAD=./libft_malloc_x86_64_Darwin make 
+
 LN = -I../libft/libft.h
-INC = -L.. -lft_malloc_x86_64_Darwin
+INC = -L. -lft_malloc_x86_64_Darwin
+
 all :
 	make -C ../ re
 	cp ../*.so .

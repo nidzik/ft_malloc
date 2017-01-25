@@ -6,7 +6,7 @@
 /*   By: jwalle <jwalle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/05 12:17:05 by jwalle            #+#    #+#             */
-/*   Updated: 2017/01/25 20:41:06 by nidzik           ###   ########.fr       */
+/*   Updated: 2017/01/25 20:40:05 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <sys/uio.h>
 # define Mo (1024 * 1024)
 
-//void show_alloc_mem();
+void show_alloc_mem();
 
 
 void	print(char *s)
@@ -53,7 +53,7 @@ int test_ex(void)
 	malloc(1024 * 1024 * 128);
 	malloc(1024 * 1024 * 128);
 //	show_alloc_mem_ex();
-	//show_alloc_mem();
+	show_alloc_mem();
 	return (0);
 }
 

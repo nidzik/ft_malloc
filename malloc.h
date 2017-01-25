@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/11 11:55:25 by nidzik            #+#    #+#             */
-/*   Updated: 2017/01/24 01:39:13 by nidzik           ###   ########.fr       */
+/*   Updated: 2017/01/25 20:32:49 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,7 @@
 #define PAGE_SMALL_SIZE SMALL_SIZE * 100
 
 #define PHEXA(...) ft_atoi_hex(ret)
-/*
- * s_page structure to stock all page allocated informations
- */
+
 typedef struct			s_page
 {
 	size_t				size;
@@ -46,11 +44,7 @@ typedef struct			s_page
 	void				*next;
 }						t_page;
 
-/*
- * s_header have all chunk information (mandatory 8 bytes)
- * 4 byte for the chuck size and 4 more to stock the pointer
- * to the next chunk
- */
+
 typedef struct			s_header
 {
 	size_t				size;
@@ -58,10 +52,7 @@ typedef struct			s_header
 	void				*next;
 }						t_header;
 
-/*
- * s_env stock all allocated memory informations
- * and it's global varibale
- */
+
 typedef struct			s_env
 {
 	t_page				*page;
@@ -69,15 +60,15 @@ typedef struct			s_env
 }						t_env;
 
 extern t_env			g_env;
-/* g_lock permit to lock or unlock a memory mutex */
+
 pthread_mutex_t			g_lock;
 
-/* 		Show all memory functions 	*/
+
 void 		show_alloc_mem();
 void 		ft_header_info(void *header, size_t size);
 void		ft_atoi_hex(void *ptr);
 
-/* 			Malloc functions 		*/
+
 void 		*malloc(size_t size);
 void    	*mallocc(size_t size, t_page *p);
 
@@ -88,11 +79,11 @@ t_page 		*new_page(size_t type, size_t size);
 void		*create_block(size_t size, void *start_page);
 void		create_head(size_t size, t_header *head, t_header *next);
 t_page		*find_page(size_t type);
-/* size_t		get_max_size(size_t type, size_t size); */
+
 size_t      get_page_size_max(size_t type);
 
 
-/* FREE FCT  */
+
 
 void        free(void *ptr);
 t_page      *find_page_free(t_page *page, void *ptr);
@@ -100,11 +91,11 @@ t_header    *find_head_free(t_page *page, void *ptr);
 void        free_head(t_header *head, void *ptr);
 void        merge(t_header *head, t_header *next, void *ptr);
 
-/* realloc */
+
 void	    *find_head(t_page *page, void *ptr);
 void		*check_size_ptr(t_header *header, size_t size, void *ptr);
 void 		*check_next(size_t size, t_header *header, void *ptr);
 void        *realloc(void *ptr, size_t size);
-void 		*super_fusion(t_header *header, t_header *next, size_t old_header_size, void *ptr);
+void 		*super_fusion(t_header *header, t_header *next, size_t ohsz, void *ptr);
 size_t      resize_size(size_t s);
 void        *check_next_null(size_t size, t_header *header, void *ptr);
