@@ -3,7 +3,7 @@
 #include <unistd.h>
 //#include "../malloc.h"
 #define Mo (1024 * 1024)
-void 	show_alloc_mem();
+//void 	show_alloc_mem();
 void	print(char *s)
 {
 	write(1, s, strlen(s));
@@ -23,6 +23,6 @@ int		main(void)
 	addr3[127 * Mo] = 42;
 	print(addr3);
 
-	show_alloc_mem();
+	//show_alloc_mem();
 	return (0);
 }

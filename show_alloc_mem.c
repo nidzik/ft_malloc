@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 13:12:07 by nidzik            #+#    #+#             */
-/*   Updated: 2017/01/25 21:02:28 by nidzik           ###   ########.fr       */
+/*   Updated: 2017/01/27 20:12:02 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void			show_alloc_mem(void)
 	while (p)
 	{
 		puttypepage(p);
-		ft_atoi_hex(p);
 		h = p->start;
 		while (h)
 		{
@@ -46,6 +45,7 @@ void			show_alloc_mem(void)
 				ft_putstr(" - ");
 				ft_atoi_hex((char *)ptr + h->size);
 				ft_putstr(" octets : ");
+				ft_putnbr(h->size);
 				ft_putchar('\n');
 			}
 			h = h->next;

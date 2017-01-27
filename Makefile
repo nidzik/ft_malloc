@@ -6,7 +6,7 @@
 #    By: nidzik <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/25 19:13:45 by nidzik            #+#    #+#              #
-#    Updated: 2017/01/25 19:28:20 by nidzik           ###   ########.fr        #
+#    Updated: 2017/01/27 19:05:44 by nidzik           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -58,7 +58,7 @@ SRCSFILES = malloc.c \
 			page.c \
 			ft_free.c \
 			realloc.c \
-
+			free_page.c
 SRC = $(addprefix $(SRCPATH)/,$(SRCSFILES))
 OBJECTS = $(SRC:$(SRCPATH)/%.c=$(OBJPATH)/%.o)
 

@@ -6,7 +6,7 @@
 /*   By: jwalle <jwalle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/05 12:17:05 by jwalle            #+#    #+#             */
-/*   Updated: 2017/01/25 20:41:06 by nidzik           ###   ########.fr       */
+/*   Updated: 2017/01/27 21:09:08 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 # include <fcntl.h>
 # include <sys/types.h>
 # include <sys/uio.h>
+# include <stdlib.h>
+# include <string.h>
+#include <unistd.h>
 # define Mo (1024 * 1024)
 
 //void show_alloc_mem();
@@ -31,7 +34,7 @@ int test_ex(void)
 {
 	int i = 0;
 
-	while (i < 101)
+	while (i < 201)
 	{
 		malloc(1024 * 2);
 		i++;
@@ -53,7 +56,7 @@ int test_ex(void)
 	malloc(1024 * 1024 * 128);
 	malloc(1024 * 1024 * 128);
 //	show_alloc_mem_ex();
-	//show_alloc_mem();
+	show_alloc_mem();
 	return (0);
 }
 
@@ -64,7 +67,7 @@ int test5(void)
 	malloc(1024 * 1024);
 	malloc(1024 * 1024 * 16);
 	malloc(1024 * 1024 * 128);
-
+	//  show_alloc_mem();
 	return (0);
 }
 
@@ -149,12 +152,24 @@ int test1(void)
 int test0(void)
 {
 	int		i;
+	char *ptr;
+	void *ptr2;
 
 	i = 0;
 	while (i < 1024)
 	{
+		
 		i++;
 	}
+	ptr = malloc(20);
+	printf("\n\n %p \n\n", ptr);
+	ptr[0] = 'o';
+	printf("\n\n %p \n\n", ptr);
+	ptr2= malloc(10);
+	free(ptr2);
+	free(ptr);
+	ptr = malloc(25);
+	show_alloc_mem();
 	return (0);
 }
 
@@ -237,6 +252,9 @@ int main(int ac, char **av)
 		getchar();
 		print("test 5 :\n");
 		system("./test test5");
+		getchar();
+        print("test show_alloc_mem :\n");
+		system("./test test_ex");
 		system("rm -rf test0.txt test1.txt test2.txt");
 		system("tput cnorm");
 	}

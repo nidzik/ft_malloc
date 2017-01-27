@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr.c                                        :+:      :+:    :+:   */
+/*   free_page.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nidzik <nidzik@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/11 16:57:38 by nidzik            #+#    #+#             */
-/*   Updated: 2017/01/27 20:14:37 by nidzik           ###   ########.fr       */
+/*   Created: 2017/01/27 18:34:46 by nidzik            #+#    #+#             */
+/*   Updated: 2017/01/27 20:03:12 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "malloc.h"
 
-void		ft_putnbr(int c)
+void		free_page(t_page *p, t_page *prev)
 {
-	if (c < 0)
+	t_header	*h;
+
+	h = p->start;
+	if (prev == NULL)
+		return ;
+	while (h->next)
 	{
-		ft_putchar('-');
-		c = c * -1;
+		if (h->free == 1)
+			h = h->next;
+		else if (h->free == 0)
+			return ;
 	}
-	if (c < 10)
-		ft_putchar(c + '0');
-	else if (c >= 10)
-	{
-		ft_putnbr(c / 10);
-		ft_putnbr(c % 10);
-	}
+	prev->next = p->next;
+	munmap(p, p->size);
 }

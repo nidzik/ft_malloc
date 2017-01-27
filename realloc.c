@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/24 19:59:35 by nidzik            #+#    #+#             */
-/*   Updated: 2017/01/25 20:45:13 by nidzik           ###   ########.fr       */
+/*   Updated: 2017/01/27 21:06:38 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,9 @@ void			*realloc(void *ptr, size_t size)
 	t_header	*header;
 	void		*fresh_ptr;
 
-	size = resize_size(size);
 	if (!ptr)
 		return (ptr = mallocc(size, g_env.page));
-	else if (!size && ptr)
+	else if (!resize_size(size) && ptr)
 	{
 		free(ptr);
 		ptr = mallocc(1, g_env.page);
@@ -48,28 +47,34 @@ void			*realloc(void *ptr, size_t size)
 	{
 		page = find_page_free(g_env.page, ptr);
 		header = find_head(page, ptr);
-		if (header == NULL || header->free == 1)
-			return (NULL);
-		else
+		if (header && header->free == 0)
 		{
-			fresh_ptr = check_size_ptr(header, size, ptr);
+			fresh_ptr = check_size_ptr(header, resize_size(size), ptr);
 			if (fresh_ptr != ptr)
 				free(ptr);
 			return (fresh_ptr);
 		}
 	}
-	else
-		return (NULL);
 	return (NULL);
 }
 
 void			*check_size_ptr(t_header *header, size_t size, void *ptr)
 {
 	void		*new_ptr;
+	t_header	*next;
 
 	if (header->size)
 	{
-		new_ptr = check_next(size, header, ptr);
+		if (header->next)
+			next = header->next;
+		else
+		{
+			next = NULL;
+			new_ptr = check_next_null(size, header, ptr);
+			if (new_ptr)
+				return (new_ptr);
+		}
+		new_ptr = check_next(size, header, ptr,next);
 		if (new_ptr)
 			return (new_ptr);
 	}
@@ -78,18 +83,10 @@ void			*check_size_ptr(t_header *header, size_t size, void *ptr)
 	return (NULL);
 }
 
-void			*check_next(size_t size, t_header *header, void *ptr)
+void			*check_next(size_t size, t_header *header, void *ptr, t_header *next)
 {
-	t_header	*next;
 	size_t		old_header_size;
 
-	if (header->next)
-		next = header->next;
-	else
-	{
-		next = NULL;
-		return (check_next_null(size, header, ptr));
-	}
 	if (size <= header->size)
 	{
 		header->free = 0;

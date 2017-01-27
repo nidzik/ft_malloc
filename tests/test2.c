@@ -1,6 +1,6 @@
 #include <stdlib.h> 
 //#include "../malloc.h"
-void show_alloc_mem();
+//void show_alloc_mem();
 int main() 
 { 
 int i; 
@@ -14,6 +14,6 @@ while (i < 1024)
 	free(addr);
 	i++; 
 } 
-	show_alloc_mem();
+//show_alloc_mem();
 return (0); 
 } 
