@@ -6,13 +6,13 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/13 15:16:23 by nidzik            #+#    #+#             */
-/*   Updated: 2016/12/01 22:04:28 by nidzik           ###   ########.fr       */
+/*   Updated: 2017/01/25 20:12:50 by nidzik           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
-void		init_genv()
+void		init_genv(void)
 {
 	t_page p;
 
@@ -34,7 +34,6 @@ size_t		get_type(size_t size)
 		return (SMALL);
 	else
 	{
-// inset getrlimit
 		return (LARGE);
 	}
 }
@@ -61,19 +60,17 @@ t_page		*new_page(size_t type, size_t size)
 	{
 		p->size = 0;
 		p->full = 0;
-		p->start =  p + sizeof(p);//mmap(0, get_page_size_max(type), FLAGS);
-//		p->start = p->start + 1;
+		p->start = p + sizeof(p);
 		p->next = NULL;
-		printf("new page type %d created %p\nstart at %p\nto %p, size of %d\n",(int)type, p,p->start,p->start + get_page_size_max(type), (int)p->size);fflush(stdout);
 	}
-	else 
+	else
 	{
 		p = mmap(0, sizeof(p) + size + 24, FLAGS);
 		p->type = type;
 		p->size = 0;
 		p->full = 1;
-		p->start =  p + sizeof(p);
+		p->start = p + sizeof(p);
 		p->next = NULL;
-			}
+	}
 	return (p);
 }

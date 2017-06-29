@@ -5,12 +5,23 @@
 #                                                     +:+ +:+         +:+      #
 #    By: nidzik <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2016/11/11 10:34:54 by nidzik            #+#    #+#              #
-#    Updated: 2016/11/24 20:18:48 by nidzik           ###   ########.fr        #
+#    Created: 2017/01/25 19:13:45 by nidzik            #+#    #+#              #
+#    Updated: 2017/01/28 12:18:21 by nidzik           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
-NAME = malloc
+
+
+
+ifeq ($(HOSTTYPE),)
+HOSTTYPE := $(shell uname -m)_$(shell uname -s)
+endif
+
+NAMELK = libft_malloc.so
+
+
+NAMEO = libft_malloc
+NAME = $(NAMEO)_$(HOSTTYPE).so
 
 # LIBFT
 LFTPATH = libft/
@@ -33,14 +44,13 @@ INCLUDES = $(INCLUDE) $(LFTIPATH) $(GRAPHINC)
 
 
 BASEFLAGS = -Wall -Wextra
-CFLAGS = $(BASEFLAGS) -Werror -O2 -g
+CFLAGS = $(BASEFLAGS) -Werror -O2 -g 
 
 
 LFTCALL = all
 LFTRE = re
 
-SRCSFILES = main.c \
-			malloc.c \
+SRCSFILES = malloc.c \
 			init.c \
 			block.c \
 			ft_atoi_hex.c \
@@ -48,6 +58,8 @@ SRCSFILES = main.c \
 			page.c \
 			ft_free.c \
 			realloc.c \
+			free_page.c \
+			realloc2.c
 
 SRC = $(addprefix $(SRCPATH)/,$(SRCSFILES))
 OBJECTS = $(SRC:$(SRCPATH)/%.c=$(OBJPATH)/%.o)
@@ -62,9 +74,11 @@ E = \033[39m
 all: l $(NAME)
 
 $(NAME): $(OBJECTS)
+	ln -sf $(NAME) $(NAMELK)
 	@echo "$(Y)[COMPILING MALLOC] $(G) $(CC) -o $@ $(CFLAGS) objs.o $(LIBS) $(E)"
-	@$(CC) -o $@ $(CFLAGS) -g $(OBJECTS) $(INCLUDES) $(LIBS)
+	@$(CC) -shared -o $@ $(CFLAGS) -g $(OBJECTS) $(INCLUDES) $(LIBS)
 	@echo "$(Y)[COMPILING MALLOC DONE]$(E)"
+
 
 $(OBJECTS): $(OBJPATH)/%.o : $(SRCPATH)/%.c
 	@mkdir -p $(dir $@)
@@ -75,6 +89,7 @@ clean:
 
 fclean: clean
 	$(RM) $(NAME)
+	$(RM) $(NAMELK)
 
 l:
 	@echo "$(Y)[COMPILING LIBFT] $(G) make -C $(LFTPATH) $(LFTCALL) $(E)"
